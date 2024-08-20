@@ -13,7 +13,118 @@
     <main>
         <p>i miei progetti.</p>
         <p>creazione di un database in c per la gestione delle pronotazioni in un hotel.</p>
-        
+        <p>#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_PRENOTAZIONI 100
+
+// Struttura per la prenotazione
+typedef struct {
+    char nomeCliente[50];
+    int numeroCamera;
+    int numeroNotti;
+} Prenotazione;
+
+// Dichiarazione delle funzioni
+void aggiungiPrenotazione(Prenotazione prenotazioni[], int *contatore);
+void visualizzaPrenotazioni(Prenotazione prenotazioni[], int contatore);
+void cancellaPrenotazione(Prenotazione prenotazioni[], int *contatore);
+
+int main() {
+    Prenotazione prenotazioni[MAX_PRENOTAZIONI];
+    int contatore = 0;
+    int scelta;
+
+    do {
+        printf("\nGestione Prenotazioni Hotel\n");
+        printf("1. Aggiungi Prenotazione\n");
+        printf("2. Visualizza Prenotazioni\n");
+        printf("3. Cancella Prenotazione\n");
+        printf("4. Esci\n");
+        printf("Scelta: ");
+        scanf("%d", &scelta);
+
+        switch(scelta) {
+            case 1:
+                aggiungiPrenotazione(prenotazioni, &contatore);
+                break;
+            case 2:
+                visualizzaPrenotazioni(prenotazioni, contatore);
+                break;
+            case 3:
+                cancellaPrenotazione(prenotazioni, &contatore);
+                break;
+            case 4:
+                printf("Uscita dal programma...\n");
+                break;
+            default:
+                printf("Scelta non valida! Riprova.\n");
+        }
+    } while(scelta != 4);
+
+    return 0;
+}
+
+void aggiungiPrenotazione(Prenotazione prenotazioni[], int *contatore) {
+    if (*contatore >= MAX_PRENOTAZIONI) {
+        printf("Numero massimo di prenotazioni raggiunto!\n");
+        return;
+    }
+
+    printf("Inserisci nome del cliente: ");
+    getchar();  // Pulizia del buffer per evitare problemi con fgets
+    fgets(prenotazioni[*contatore].nomeCliente, 50, stdin);
+    prenotazioni[*contatore].nomeCliente[strcspn(prenotazioni[*contatore].nomeCliente, "\n")] = 0;  // Rimuove newline
+
+    printf("Inserisci numero della camera: ");
+    scanf("%d", &prenotazioni[*contatore].numeroCamera);
+
+    printf("Inserisci numero di notti: ");
+    scanf("%d", &prenotazioni[*contatore].numeroNotti);
+
+    (*contatore)++;
+    printf("Prenotazione aggiunta con successo!\n");
+}
+
+void visualizzaPrenotazioni(Prenotazione prenotazioni[], int contatore) {
+    if (contatore == 0) {
+        printf("Nessuna prenotazione disponibile.\n");
+        return;
+    }
+
+    printf("\nElenco Prenotazioni:\n");
+    for (int i = 0; i < contatore; i++) {
+        printf("Prenotazione %d:\n", i + 1);
+        printf("Nome Cliente: %s\n", prenotazioni[i].nomeCliente);
+        printf("Numero Camera: %d\n", prenotazioni[i].numeroCamera);
+        printf("Numero Notti: %d\n", prenotazioni[i].numeroNotti);
+        printf("-----------------------\n");
+    }
+}
+
+void cancellaPrenotazione(Prenotazione prenotazioni[], int *contatore) {
+    if (*contatore == 0) {
+        printf("Nessuna prenotazione da cancellare.\n");
+        return;
+    }
+
+    int index;
+    printf("Inserisci il numero della prenotazione da cancellare (1-%d): ", *contatore);
+    scanf("%d", &index);
+
+    if (index < 1 || index > *contatore) {
+        printf("Indice non valido!\n");
+        return;
+    }
+
+    for (int i = index - 1; i < *contatore - 1; i++) {
+        prenotazioni[i] = prenotazioni[i + 1];
+    }
+
+    (*contatore)--;
+    printf("Prenotazione cancellata con successo!\n");
+}</p>
     </main>
     <footer>
         <p>&copy; 2024 Nicola Zancanella. Tutti i diritti riservati.</p>
