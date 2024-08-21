@@ -125,6 +125,27 @@ void cancellaPrenotazione(Prenotazione prenotazioni[], int *contatore) {
     (*contatore)--;
     printf("Prenotazione cancellata con successo!\n");
 }</p>
+        <p> programma che genera un lancio di un dado a caso, utile per una partita </p>
+        <p>
+            import random
+
+def lancia_dado():
+    return random.randint(1, 6)
+
+def main():
+    while True:
+        input("Premi Invio per lanciare il dado (o digita 'q' per uscire): ")
+        
+        if input().lower() == 'q':
+            print("Uscita dal programma.")
+            break
+
+        risultato = lancia_dado()
+        print(f"Hai lanciato un {risultato}!")
+
+if __name__ == "__main__":
+    main()
+        </p>
     </main>
     <footer>
         <p>&copy; 2024 Nicola Zancanella. Tutti i diritti riservati.</p>
